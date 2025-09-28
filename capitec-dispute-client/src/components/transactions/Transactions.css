@@ -1,0 +1,255 @@
+.transactions-container {
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.transactions-header {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 20px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo {
+  height: 32px;
+  width: auto;
+}
+
+.header-content h1 {
+  color: #2d3748;
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.welcome-text {
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.button-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.logout-button {
+  background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(229, 62, 62, 0.2);
+}
+
+.logout-button:hover {
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+.logout-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(229, 62, 62, 0.2);
+}
+
+.transactions-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.loading {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+  color: #4a5568;
+}
+
+.error-message {
+  background: #fed7d7;
+  color: #c53030;
+  padding: 16px 20px;
+  border-radius: 8px;
+  border-left: 4px solid #c53030;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.retry-button {
+  background: #c53030;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.retry-button:hover {
+  background: #9c2626;
+}
+
+.no-transactions {
+  text-align: center;
+  padding: 50px;
+  color: #4a5568;
+}
+
+.transactions-table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.transactions-table th {
+  background: white;
+  color: #2d3748;
+  font-weight: 600;
+  padding: 16px;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.transactions-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #4a5568;
+  background: white;
+  text-align: left;
+  vertical-align: top;
+}
+
+.transactions-table tr {
+  background: white;
+}
+
+.transactions-table tr:hover {
+  background: #f7fafc;
+}
+
+.reference {
+  font-family: monospace;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.description {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.amount {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.dispute-button {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dispute-button:hover {
+  background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+}
+
+.dispute-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.2);
+}
+
+.dispute-button.view-dispute {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.dispute-button.view-dispute:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.dispute-button.view-dispute:active {
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.dispute-button.create-dispute {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.2);
+}
+
+.dispute-button.create-dispute:hover {
+  background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+}
+
+.dispute-button.create-dispute:active {
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.2);
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .transactions-table-container {
+    overflow-x: auto;
+  }
+
+  .transactions-table {
+    min-width: 600px;
+  }
+}

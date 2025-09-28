@@ -1,0 +1,122 @@
+services:
+  capitec-dispute-postgres:
+    image: postgres:16.4
+    container_name: capitec-dispute-database
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database-configuration/capitec-dispute-database/data:/var/lib/postgresql/data
+      - ./database-configuration/capitec-dispute-database/init-keycloak-schema.sql:/docker-entrypoint-initdb.d/init-keycloak-schema.sql
+    networks:
+      - capitec-dispute-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 1s
+      timeout: 2s
+      retries: 3
+
+
+  capitec-dispute-keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    container_name: capitec-dispute-keycloak-server
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://capitec-dispute-postgres:5432/${POSTGRES_DB}
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_DB_SCHEMA: ${KEYCLOAK_DB_SCHEMA}
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+    ports:
+      - "5050:8080"
+    depends_on:
+      capitec-dispute-postgres:
+        condition: service_healthy
+    networks:
+      - capitec-dispute-network
+    command: start --http-relative-path=/auth --features=admin-api
+
+  capitec-dispute-nginx:
+    build:
+      context: ./ngnix-proxy
+      dockerfile: Dockerfile
+    container_name: capitec-dispute-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      capitec-dispute-postgres:
+        condition: service_healthy
+      capitec-dispute-keycloak:
+        condition: service_started
+      capitec-dispute-portal-server:
+        condition: service_healthy
+      capitec-dispute-client:
+        condition: service_started
+    networks:
+      - capitec-dispute-network
+    volumes:
+      - ./ngnix-proxy/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+      - ./ngnix-proxy/index.html:/etc/nginx/html/index.html:ro
+
+  capitec-dispute-portal-server:
+    build:
+      context: ../capitec-dispute-portal-server
+      dockerfile: Dockerfile
+    container_name: capitec-dispute-portal-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://capitec-dispute-postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      KEYCLOAK_AUTH_SERVER_URL: http://capitec-dispute-keycloak:8080/auth
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://capitec-dispute-keycloak:8080/auth/realms/${KEYCLOAK_REALM}
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://capitec-dispute-keycloak:8080/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs
+    ports:
+      - "8080:8080"
+    depends_on:
+      capitec-dispute-postgres:
+        condition: service_healthy
+      capitec-dispute-keycloak:
+        condition: service_started
+    networks:
+      - capitec-dispute-network
+    healthcheck:
+      test: ["CMD-SHELL", "exit 0"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  capitec-dispute-client:
+    build:
+      context: ../capitec-dispute-client
+      dockerfile: Dockerfile
+    container_name: capitec-dispute-client
+    environment:
+      REACT_APP_API_BASE_URL: http://localhost/api
+      REACT_APP_KEYCLOAK_URL: http://localhost/auth
+      REACT_APP_KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      REACT_APP_KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      PUBLIC_URL: /portal
+    ports:
+      - "3000:3000"
+    depends_on:
+      capitec-dispute-portal-server:
+        condition: service_started
+    networks:
+      - capitec-dispute-network
+
+networks:
+  capitec-dispute-network:
+    driver: bridge

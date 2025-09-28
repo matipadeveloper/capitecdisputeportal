@@ -1,0 +1,169 @@
+# Global .gitignore for Capitec Dispute Portal Project
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-*
+.history/
+
+# Java / Spring Boot / Maven
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+target/
+.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+mvnw
+mvnw.cmd
+
+# Spring Boot specific
+application-*.yml
+application-*.yaml
+application-*.properties
+!application.properties
+!application.yml
+!application.yaml
+
+# Node.js / React / npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+*.tar.gz
+
+# React Build Output
+build/
+dist/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+.docker/
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+data/
+database-configuration/capitec-dispute-database/data/
+*.sql.backup
+*.dump
+
+# Log Files
+*.log
+logs/
+*.out
+*.err
+
+# Temporary Files
+*.tmp
+*.temp
+.cache/
+.temp/
+tmp/
+
+# Security and Configuration
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+.env
+.env.*
+!.env.example
+secrets/
+keystore.*
+
+# Build and Compiled Output
+*.o
+*.so
+*.dylib
+*.dll
+*.exe
+*.class
+*.pyc
+*.pyo
+__pycache__/
+
+# Test Coverage and Reports
+coverage/
+*.lcov
+.nyc_output/
+test-results/
+junit.xml
+*.xml
+
+# Backup Files
+*.bak
+*.backup
+*.old
+*~
+
+# Package Files
+*.tgz
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Runtime and Process Files
+*.pid
+*.seed
+*.pid.lock
+
+# Keycloak specific
+keycloak-data/
+
+# Spring Boot DevTools
+.devtools/
+
+# IntelliJ IDEA module files
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
