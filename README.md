@@ -52,6 +52,9 @@ KEYCLOAK_CLIENT_SECRET=<capitec-dispute-client-secret> <- this is the client sec
 KEYCLOAK_DB_SCHEMA=<capitec-dispute-keycloak>
 ```
 
+## Note
+Please remember to align your KEYCLOAK_DB_SCHEMA, POSTGRES_DB and POSTGRES_USER to the values in capitec-dispute-portal-infrastructure/database-configuration/capitec-dispute-database/init-keycloak-schema.sql
+
 ### 3. Build and Start the Application
 
 ```bash
