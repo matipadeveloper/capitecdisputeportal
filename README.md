@@ -30,7 +30,7 @@ cd capitec-dispute-portal
 
 ### 2. Environment Configuration
 
-The project uses environment variables for configuration. Add your variable to a .env file in your docker-compose.yml directory or export environment variables for your credentials
+The project uses environment variables for configuration. Add your variables to a .env file in your docker-compose.yml directory or export environment variables for your credentials
 Below are the environment variables needed to be set.
 
 Please note the below are placeholders, replace them with your actual values. (You can find these in the docker-compose.yml file)
