@@ -59,7 +59,7 @@ Please remember to align your KEYCLOAK_DB_SCHEMA, POSTGRES_DB and POSTGRES_USER 
 
 ```bash
 cd capitec-dispute-portal-infrastructure
-docker-compose up --build
+docker compose up --build
 ```
 
 This command will:
@@ -83,7 +83,7 @@ You will most likely have issues with authentication, to resolve this you will n
 - Create a client that aligns with KEYCLOAK_CLIENT_ID the KEYCLOAK_CLIENT_SECRET can be pulled from keycloak.
 - Create users and assign them to roles as needed, under the realm these users will be able to login to the portal to check there transactions
 
-Then restart the applications with `docker-compose restart` this should be once off just to get your data setup
+Then restart the applications with `docker compose restart` this should be once off just to get your data setup
 
 ### 5. Access the Application
 
