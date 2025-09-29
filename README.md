@@ -24,16 +24,17 @@ This project consists of several integrated components:
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/matipadeveloper/capitecdisputeportal.git
 cd capitec-dispute-portal
 ```
 
 ### 2. Environment Configuration
 
-The project uses environment variables for configuration. Add your credentials to a .env file in your docker-compose.yml directory or export environment variables for your credentals:
+The project uses environment variables for configuration. Add your variable to a .env file in your docker-compose.yml directory or export environment variables for your credentials
 Below are the environment variables needed to be set.
 
-Please note the below are placeholders, replace them with your actual values.
+Please note the below are placeholders, replace them with your actual values. (You can find these in the docker-compose.yml file)
+
 ```env
 # Database Configuration
 POSTGRES_DB=<capitec-dispute-database>
@@ -44,14 +45,12 @@ POSTGRES_PASSWORD=<capitec-dispute-db-password>
 KEYCLOAK_ADMIN=<capitec-dispute-admin>
 KEYCLOAK_ADMIN_PASSWORD=<capitec-dispute-password>
 KEYCLOAK_REALM=<capitec-dispute-realm>
-KEYCLOAK_CLIENT_ID=<capitec-dispute-client>
-KEYCLOAK_CLIENT_SECRET=<capitec-dispute-client-secret>
+KEYCLOAK_CLIENT_ID=<capitec-dispute-client> <- this is the client id you will create in keycloak
+KEYCLOAK_CLIENT_SECRET=<capitec-dispute-client-secret> <- this is the client secret you will create in keycloak
 
 # Database Schema
 KEYCLOAK_DB_SCHEMA=<capitec-dispute-keycloak>
 ```
-
-**Note**: Replace the placeholder values with your actual configuration. For reference, check the existing `.env` file in the `capetic-dispute-portal-infrastructure` directory.
 
 ### 3. Build and Start the Application
 
@@ -74,8 +73,8 @@ You will most likely have issues with authentication, to resolve this you will n
 ### Default Admin Access
 
 **Keycloak Admin Console**: http://localhost:5050/auth/admin
-- Username: `KEYCLOAK_ADMIN`
-- Password: `KEYCLOAK_ADMIN_PASSWORD`
+- Username: `KEYCLOAK_ADMIN` <- this is the username you set in your .env file
+- Password: `KEYCLOAK_ADMIN_PASSWORD` <- this is the password you set in your .env file
 
 - Then create a realm that aligns with your KEYCLOAK_REALM name
 - Create a client that aligns with KEYCLOAK_CLIENT_ID the KEYCLOAK_CLIENT_SECRET can be pulled from keycloak.
@@ -132,7 +131,7 @@ All API endpoints (except authentication) require valid JWT tokens. The JWT can 
 
 ### Common Issues
 
-1. **Services won't start**: Check Docker daemon is running
+1. **Services won't start**: Check Docker daemon is running, or application logs
 2. **Database connection errors**: Verify PostgreSQL container is healthy
-3. **Authentication issues**: Ensure Keycloak is properly configured
+3. **Authentication issues**: Ensure Keycloak is properly configured, with correct realm, client, and users
 4. **CORS errors**: Verify nginx proxy configuration
